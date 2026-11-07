@@ -18,7 +18,7 @@ final class Plugin {
 
 	private const ACTION = 'shakewell_clone_posts';
 	private const BULK   = 'shakewell_clone_posts_bulk';
-	private const NOTICE = 'shakewell_cloned';
+	private const NOTICE = 'shakewell_clone_posts_done';
 
 	/**
 	 * Registers hooks. Called on plugins_loaded.
