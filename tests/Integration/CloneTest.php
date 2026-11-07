@@ -221,28 +221,28 @@ final class CloneTest extends WP_UnitTestCase {
 		$id       = $this->original();
 		$location = $this->request( $id, 'clone' );
 		$this->assertStringContainsString( 'edit.php?post_type=post', $location );
-		$this->assertStringContainsString( 'shakewell_cloned=', $location );
+		$this->assertStringContainsString( 'shakewell_clone_posts_done=', $location );
 	}
 
 	public function test_works_for_a_page_and_a_custom_type_with_both_taxonomy_kinds(): void {
-		register_taxonomy( 'region', 'venue', array( 'hierarchical' => true ) );
-		register_taxonomy( 'label', 'venue', array( 'hierarchical' => false ) );
-		register_post_type( 'venue', array( 'public' => true, 'show_ui' => true, 'taxonomies' => array( 'region', 'label' ) ) );
+		register_taxonomy( 'genre', 'book', array( 'hierarchical' => true ) );
+		register_taxonomy( 'label', 'book', array( 'hierarchical' => false ) );
+		register_post_type( 'book', array( 'public' => true, 'show_ui' => true, 'taxonomies' => array( 'genre', 'label' ) ) );
 
-		$id     = self::factory()->post->create( array( 'post_type' => 'venue', 'post_title' => 'Bar' ) );
-		$region = self::factory()->term->create( array( 'taxonomy' => 'region' ) );
-		wp_set_object_terms( $id, array( $region ), 'region' );
-		wp_set_object_terms( $id, array( 'night' ), 'label' );
+		$id     = self::factory()->post->create( array( 'post_type' => 'book', 'post_title' => 'Widget' ) );
+		$region = self::factory()->term->create( array( 'taxonomy' => 'genre' ) );
+		wp_set_object_terms( $id, array( $region ), 'genre' );
+		wp_set_object_terms( $id, array( 'crime' ), 'label' );
 		$new = $this->copy( $id );
-		$this->assertSame( 'venue', get_post_type( $new ) );
-		$this->assertSame( array( $region ), wp_get_object_terms( $new, 'region', array( 'fields' => 'ids' ) ) );
-		$this->assertSame( array( 'night' ), wp_get_object_terms( $new, 'label', array( 'fields' => 'names' ) ) );
+		$this->assertSame( 'book', get_post_type( $new ) );
+		$this->assertSame( array( $region ), wp_get_object_terms( $new, 'genre', array( 'fields' => 'ids' ) ) );
+		$this->assertSame( array( 'crime' ), wp_get_object_terms( $new, 'label', array( 'fields' => 'names' ) ) );
 
 		$page = $this->original( array( 'post_type' => 'page' ) );
 		$this->assertSame( 'page', get_post_type( $this->copy( $page ) ) );
 
-		unregister_post_type( 'venue' );
-		unregister_taxonomy( 'region' );
+		unregister_post_type( 'book' );
+		unregister_taxonomy( 'genre' );
 		unregister_taxonomy( 'label' );
 	}
 }
