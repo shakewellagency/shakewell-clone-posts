@@ -1,10 +1,10 @@
 === Shakewell Clone Posts ===
-Contributors: shakewell
+Contributors: shakewellagency
 Tags: clone, duplicate, copy, draft, editor
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,6 +83,9 @@ Nothing is removed, because the "copy of" markers sit on your content. To remove
 Please do not open a public issue. Follow SECURITY.md in the plugin's repository.
 
 == Changelog ==
+
+= 0.1.1 =
+* Site-neutral test data, a prefixed notice query argument and the readme contributor field.
 
 = 0.1.0 =
 * First release: Clone, New Draft, bulk Clone, editor links.
